@@ -5,9 +5,7 @@ from collections import Counter
 import re
 import plotly.graph_objects as go
 from transformers import pipeline, AutoTokenizer
-import numpy as np
 import string
-import torch
 import zipfile
 import os
 
