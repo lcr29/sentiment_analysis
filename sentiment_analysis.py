@@ -8,7 +8,6 @@ from transformers import pipeline, AutoTokenizer
 import numpy as np
 import string
 import torch
-import streamlit.components.v1 as components
 import zipfile
 import os
 
