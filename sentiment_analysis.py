@@ -8,6 +8,7 @@ from transformers import pipeline, AutoTokenizer
 import string
 import zipfile
 import os
+import torch
 
 #Loading of model and data
 def load_model():
