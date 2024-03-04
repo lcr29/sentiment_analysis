@@ -13,4 +13,4 @@ def show():
         """, unsafe_allow_html=True)
     
     # Add this line at the bottom to display the emotions.webp image
-    st.image('emotions.webp', caption='Emotions through Music')
+    st.image('emotions.webp', caption='6 Types of Basic Emotions')
