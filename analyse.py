@@ -16,7 +16,7 @@ def show():
         return
 
     # Display the selected playlist as a title for information
-    st.subheader(f"You are currently nalyzing the playlist: {selected_playlist}")
+    st.subheader(f"You are currently analyzing the playlist: {selected_playlist}")
     st.write("Want to see more? Select another playlist in the dropdown menu on your left if you want!.")
 
     playlist_df = df[df['playlist.name'] == selected_playlist]
