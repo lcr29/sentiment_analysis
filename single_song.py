@@ -6,6 +6,7 @@ from transformers import pipeline, AutoTokenizer
 import numpy as np
 import pandas as pd
 import string
+from IPython.display import HTML
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 
@@ -51,7 +52,10 @@ def show():
         st.session_state.selected_song = song_selection
         # Assuming 'cleaned_lyrics' is a column in your dataframe
         lyrics = df[df['track.name'] == st.session_state.selected_song].iloc[0]['cleaned_lyrics']
-        st.session_state.lyrics = lyrics
+        # Truncate the lyrics to a maximum of 775 characters
+        truncated_lyrics = lyrics[:775] if len(lyrics) > 775 else lyrics
+        st.session_state.lyrics = truncated_lyrics
+        # st.session_state.lyrics = lyrics
         st.write("Lyrics:")
         #st.text(st.session_state.lyrics)
         # Use st.text_area to display the lyrics, set the height appropriately
