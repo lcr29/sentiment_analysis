@@ -15,7 +15,14 @@ def show():
         st.warning("No playlist selected. Please choose a playlist from the sidebar.")
         return
 
+    # Display the selected playlist as a title for information
+    st.subheader(f"You are currently nalyzing the playlist: {selected_playlist}")
+    st.write("Want to see more? Select another playlist in the dropdown menu on your left if you want!.")
+
     playlist_df = df[df['playlist.name'] == selected_playlist]
+
+    # Filter keywords_df for the selected playlist
+    playlist_keywords_df = keywords_df[keywords_df['playlist.name'] == selected_playlist]
 
     # Calculate average sentiment
     sentiment_cols = ['joy', 'fear', 'sadness', 'anger', 'surprise', 'neutral', 'disgust']
@@ -26,16 +33,16 @@ def show():
 
     with col1:
         st.subheader("Speech - Keywords")
-        if not keywords_df.empty:
-            # Initialize lists to store keywords and their frequencies
+        if not playlist_keywords_df.empty:
+            # Extract top 10 keywords and their frequencies for the selected playlist
             keywords = []
             frequencies = []
-            
-            # Extract top 10 keywords and their frequencies
-            for i in range(1, 11):  # Assuming you have columns like TOP_1_keyword, TOP_2_keyword, ..., TOP_10_keyword
-                if f'TOP_{i}_keyword' in keywords_df and f'TOP_{i}_keyword_freq' in keywords_df:
-                    keyword = keywords_df[f'TOP_{i}_keyword'].values[0]
-                    frequency = keywords_df[f'TOP_{i}_keyword_freq'].values[0]
+            for i in range(1, 11):  # Loop through top 10 keywords
+                keyword_column = f'TOP_{i}_keyword'
+                frequency_column = f'TOP_{i}_keyword_freq'
+                if keyword_column in playlist_keywords_df.columns and frequency_column in playlist_keywords_df.columns:
+                    keyword = playlist_keywords_df[keyword_column].iloc[0]  # Use .iloc[0] to get the first row's value
+                    frequency = playlist_keywords_df[frequency_column].iloc[0]
                     keywords.append(keyword)
                     frequencies.append(frequency)
             
@@ -43,13 +50,15 @@ def show():
             fig_keywords = go.Figure(data=[go.Bar(x=keywords, y=frequencies)])
             fig_keywords.update_layout(title_text='Top Keywords Frequency', xaxis_title="Keywords", yaxis_title="Frequency", width=350, height=350)
             st.plotly_chart(fig_keywords)
+        else:
+            st.write("No keyword data available for this playlist.")
 
     with col2:
-        st.subheader("Sentiment Analysis")
-        fig_sentiment = px.pie(sentiment_df, names='sentiment', values='value', title='Average Sentiment Distribution', color='sentiment',
+       st.subheader("Sentiment Analysis")
+       fig_sentiment = px.pie(sentiment_df, names='sentiment', values='value', title='Average Sentiment Distribution', color='sentiment',
                                color_discrete_map=sentiment_colors)
-        fig_sentiment.update_layout(width=350, height=350)  # Adjust size to fit column
-        st.plotly_chart(fig_sentiment)
+       fig_sentiment.update_layout(width=350, height=350)  # Adjust size to fit column
+       st.plotly_chart(fig_sentiment)
 
     col3, col4 = st.columns(2)
 
