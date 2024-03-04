@@ -11,3 +11,6 @@ def show():
             <li>User Manual: read our manual if you require help in understanding or using the app interface.</li>
         </ul>
         """, unsafe_allow_html=True)
+    
+    # Add this line at the bottom to display the emotions.webp image
+    st.image('emotions.webp', caption='Emotions through Music')
