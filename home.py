@@ -2,7 +2,7 @@ import streamlit as st
 
 def show():
     st.markdown("""
-        <h1 style='color: #1ed760'>Welcome to SENTUNE! 🎶</h1>
+        <h1>Welcome to <span style='color: #1ed760'>SENTUNE</span>! 🎶</h1>
         <div>Use the sidebar according to your requirements:</div>
         <ul>
             <li>Choose: find a playlist that identifies with your desired audience.</li>
